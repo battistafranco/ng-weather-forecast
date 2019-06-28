@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div>
+        <a class="ng-title-icon" href="http://angular.io" target="_blank">
+          <i></i>
+        </a>
+        <span class="title">{{title}}</span>
+        <span></span>
+        <a mat-button [routerLink]="['/forecast']" routerLinkActive="router-link-active">
+          <span>Weather Forecast</span>
+        </a>
+        <a mat-button [routerLink]="['/favs']" routerLinkActive="router-link-active">
+          <span>Favs</span>
+        </a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  

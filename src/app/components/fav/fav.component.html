@@ -1,0 +1,65 @@
+<div *ngIf="favs$ | async as favs">
+    <mat-spinner *ngIf="loading$ | async;else favsList" mode="indeterminate" color="accent"></mat-spinner>
+    <ng-template #favsList>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Favoritos: {{count$ | async}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <ul class="favss">
+                    <div *ngFor="let fav of favs" style="display: inline" class="item-container">
+                        <mat-card>
+                            <mat-card-header>
+                                <mat-card-title>{{fav.city }} ({{fav.description}})</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content style="margin: 0 auto; text-align: center">
+
+                                <!-- Facebook -->
+                                <a href="http://www.facebook.com/sharer.php?u=https://openweathermap.org/city/{{fav.id}}"
+                                    target="_blank">
+                                    <img class="share" src="https://simplesharebuttons.com/images/somacro/facebook.png"
+                                        alt="Facebook" />
+                                </a>
+
+                                <!-- LinkedIn -->
+                                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://openweathermap.org/city/{{fav.id}}"
+                                    target="_blank">
+                                    <img class="share" src="https://simplesharebuttons.com/images/somacro/linkedin.png"
+                                        alt="LinkedIn" />
+                                </a>
+
+                                <!-- Twitter -->
+                                <a href="https://twitter.com/share?url=https://openweathermap.org/city/{{fav.id}}}&amp;text=Forecast%20{{fav.city}}%20Now&amp;hashtags=forecast{{fav.city}}"
+                                    target="_blank">
+                                    <img class="share" src="https://simplesharebuttons.com/images/somacro/twitter.png"
+                                        alt="Twitter" />
+                                </a>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <a mat-button mat-suffix [routerLink]="['/forecast/details', fav.id]" color="primary"
+                                    class="share-button" aria-label="Details" matTooltip="Details">
+                                    Details
+                                </a>
+                                <button mat-button mat-suffix color="warn" class="delete-button" aria-label="Remove"
+                                    (click)="delete(fav)" matTooltip="Remove Fav">
+                                    Remove
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+
+                        <!-- <div class="selectable-item" [class.selected]="fav === selectedForecast"
+                                (click)="select(fav)">
+                                <div class="badge"> {{fav.id}}</div>
+                                <div class="item-text">
+                                    <div class="name">{{fav.name }}</div>
+                                    <div class="saying">{{fav.sys.country}}</div>
+                                </div>
+                               
+                            </div> -->
+                    </div>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+
+    </ng-template>
+</div>

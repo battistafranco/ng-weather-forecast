@@ -1,0 +1,18 @@
+<mat-card *ngIf="forecast$ | async as forecast">
+    <mat-card-header>
+        <mat-card-title>Details from: <b>{{forecast.name }} ({{forecast.sys.country}})</b></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <h5>Info</h5>
+        Temp: {{forecast.main.temp }} °C
+        Humidity: {{forecast.main.humidity}} %
+        <hr />
+        <h5>Weather</h5>
+        {{forecast.weather[0].main}} ({{forecast.weather[0].description}})
+        <br />
+
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+</mat-card>

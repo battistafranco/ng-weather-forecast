@@ -1,0 +1,56 @@
+<div class="control-panel">
+    <div class="button-panel">
+        <form [formGroup]="form">
+            <mat-form-field style="width: 100%">
+                <input id="selectedFilterValue" formControlName="selectedFilterValue" matInput type="text"
+                    placeholder="Look the weather for your city" />
+            </mat-form-field><br />
+            <button style="width: 100%" mat-raised-button color="primary" type="button" (click)="search()"
+                matTooltip="Refresh the forecasts">Search</button>
+        </form>
+    </div>
+</div>
+<div *ngIf="message != ''" class="messages">
+    {{message}}
+</div>
+<div class="content-container">
+    <div class="list-container">
+        <div *ngIf="forecast$ | async as forecast">
+            <mat-spinner *ngIf="loading$ | async;else forecastList" mode="indeterminate" color="accent"></mat-spinner>
+            <ng-template #forecastList>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Results Found: {{forecast.count}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <ul class="forecasts">
+                            <div *ngFor="let city of forecast.list" style="display: inline" class="item-container">
+                                <mat-card>
+                                    <mat-card-header>
+                                        <mat-card-title>{{city.name }} ({{city.sys.country}})</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        Temp: {{city.main.temp }} °C
+                                        Humidity: {{city.main.humidity}} %
+                                    </mat-card-content>
+                                    <mat-card-actions>
+                                        <a mat-button mat-suffix [routerLink]="['/forecast/details', city.id]"
+                                            color="primary" class="share-button" aria-label="Details"
+                                            matTooltip="Details">
+                                            Details
+                                        </a>
+                                        <button mat-button mat-suffix color="primary" class="addFav-button"
+                                            aria-label="Fav" (click)="addFav(city)" matTooltip="Add Fav">
+                                            Add to Favs
+                                        </button>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
+                        </ul>
+                    </mat-card-content>
+                </mat-card>
+
+            </ng-template>
+        </div>
+    </div>
+</div>
